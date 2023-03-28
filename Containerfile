@@ -1,20 +1,14 @@
-FROM quay.io/toolbx-images/alpine-toolbox:edge
+FROM registry.fedoraproject.org/fedora-toolbox:37
 
 LABEL com.github.containers.toolbox="true" \
-      usage="This image is meant to be used with the toolbox or distrobox command" \
+      usage="This image is meant to be used with the toolbox command" \
       summary="A cloud-native terminal experience" \
-      maintainer="jorge.castro@gmail.com>"
+      maintainer="peter.liveyns@gmail.com>"
 
 COPY extra-packages /
-RUN apk update && \
-    apk upgrade && \
-    grep -v '^#' /extra-packages | xargs apk add
+
+RUN dnf upgrade -y && \
+    dnf install -y $(cat extra-packages)
+
 RUN rm /extra-packages
 
-RUN   ln -fs /bin/sh /usr/bin/sh && \
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \ 
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
-      ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/transactional-update
-     
