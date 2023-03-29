@@ -26,7 +26,7 @@ It is used in conjuction with a [dotfile manager](https://dotfiles.github.io/uti
 
 If you use toolbx:
 
-    toolbox create -i ghcr.io/pliveyns/ MyToolbx -c MyToolbx
+    toolbox create -i ghcr.io/pliveyns/mytoolbx -c MyToolbx
     toolbox enter MyToolbx
 
 ### Pull down your config
