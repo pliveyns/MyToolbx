@@ -20,5 +20,5 @@ RUN echo "--- Installing RPMs defined in recipe.yml --" && \
     done && \
     echo "---"
 
-RUN rm /etc/toolbox-recipe.yml
+RUN rm /etc/toolbx-recipe.yml
 
