@@ -13,7 +13,7 @@ COPY --from=docker.io/mikefarah/yq /usr/bin/yq /usr/bin/yq
 #    dnf install -y $(cat extra-packages)
 
 RUN echo "--- Installing RPMs defined in recipe.yml --" && \
-    rpm_pakages=$(yq '.rpms[]' < /etc/toolbx-recipe.yml) && \
+    rpm_packages=$(yq '.rpms[]' < /etc/toolbx-recipe.yml) && \
     for pkg in $rpm_packages; do \
         echo "Installing: ${pkg}" && \
         dnf install -y $pkg; \
