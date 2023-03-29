@@ -1,4 +1,26 @@
 rpms:
   - zsh
   - neofetch
+  - inxi
+  - minicom
+  - wget
+  - curl
+  - rclone
+  - ranger
+  - mc
+  - restic
+  - p7zip
+  - p7zip-plugins
+  - cryptsetup
+  - ncdu
+  - tmux
+  - btop
+  - par2cmdline
+  - bat
+  - nmap-ncat
+  - pandoc
+  - ripgrep
+  - tig
+  - w3m
+  - exa
 
