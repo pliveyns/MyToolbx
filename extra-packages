@@ -1,16 +1,16 @@
-atuin
+#atuin
 btop
 bat
-chezmoi
-clipboard
-cosign
+#chezmoi
+#clipboard
+#cosign
 dbus-x11
 direnv
 exa
-ffmpeg
+#ffmpeg
 fzf
-github-cli
-helix
+#github-cli
+#helix
 just
 make
 micro
@@ -23,8 +23,10 @@ plocate
 python3
 ripgrep
 speedtest-cli
-starship
-vimdiff
+#starship
+#vimdiff
 wl-clipboard
-zellij
+#zellij
 zstd
+
+Error: Unable to find a match: atuin chezmoi clipboard cosign ffmpeg github-cli helix starship vimdiff zellij
