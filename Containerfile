@@ -5,10 +5,20 @@ LABEL com.github.containers.toolbox="true" \
       summary="A cloud-native terminal experience" \
       maintainer="peter.liveyns@gmail.com>"
 
-COPY extra-packages /
+COPY recipe.yml /etc/toolbx-recipe.yml
 
-RUN dnf upgrade -y && \
-    dnf install -y $(cat extra-packages)
+COPY --from=docker.io/mikefarah/yq /usr/bin/yq /usr/bin/yq
 
-RUN rm /extra-packages
+#RUN dnf upgrade -y && \
+#    dnf install -y $(cat extra-packages)
+
+RUN echo "--- Installing RPMs defined in recipe.yml --" && \
+    rpm_pakages=$(yq '.rpms[]' < /etc/toolbx-recipe.yml) && \
+    for pkg in $rpm_packages; do \
+        echo "Installing: ${pkg}" && \
+        dnf install -y $pkg; \
+    done && \
+    echo "---"
+
+RUN rm /etc/toolbox-recipe.yml
 
