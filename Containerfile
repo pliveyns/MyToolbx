@@ -20,7 +20,7 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     done && \
     echo "---" && \
     echo "--- Installing RPM packages from url defined in recipe.yml --" && \
-    rpm_urls=$(yq '.rpm[]' < /etc/toolbox-recipe.yml) && \
+    rpm_urls=$(yq '.rpm[]' < /etc/toolbx-recipe.yml) && \
     for pkg in $rpm_urls; do \
         echo "Installing: ${pkg}" && \
         dnf install -y $pkg; \
