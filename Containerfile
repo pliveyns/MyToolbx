@@ -12,9 +12,16 @@ COPY --from=docker.io/mikefarah/yq /usr/bin/yq /usr/bin/yq
 #RUN dnf upgrade -y && \
 #    dnf install -y $(cat extra-packages)
 
-RUN echo "--- Installing RPMs defined in recipe.yml --" && \
-    rpm_packages=$(yq '.rpms[]' < /etc/toolbx-recipe.yml) && \
-    for pkg in $rpm_packages; do \
+RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
+    dnf_packages=$(yq '.dnf[]' < /etc/toolbx-recipe.yml) && \
+    for pkg in $dnf_packages; do \
+        echo "Installing: ${pkg}" && \
+        dnf install -y $pkg; \
+    done && \
+    echo "---" && \
+    echo "--- Installing RPM packages from url defined in recipe.yml --" && \
+    rpm_urls=$(yq '.rpm[]' < /etc/toolbox-recipe.yml) && \
+    for pkg in $rpm_urls; do \
         echo "Installing: ${pkg}" && \
         dnf install -y $pkg; \
     done && \

@@ -1,4 +1,4 @@
-rpms:
+dnf:
   - zsh
   - neofetch
   - inxi
@@ -23,4 +23,11 @@ rpms:
   - tig
   - w3m
   - exa
+rpm:
+  - https://github.com/twpayne/chezmoi/releases/download/v2.33.0/chezmoi-2.33.0-x86_64.rpm
+binaries:
+  - chezmoi: https://github.com/twpayne/chezmoi/releases/download/v2.33.0/chezmoi_2.33.0_linux-musl_amd64.tar.gz
+  - zellij: https://github.com/zellij-org/zellij/releases/download/v0.35.2/zellij-x86_64-unknown-linux-musl.tar.gz
+  - nb: https://raw.github.com/xwmx/nb/master/nb
+  - host-spawn: https://github.com/1player/host-spawn/releases/download/1.4.1/host-spawn-x86_64
 
