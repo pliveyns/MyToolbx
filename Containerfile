@@ -34,7 +34,7 @@ RUN echo "--- Installing binary packages from tar download in recipe.yml --" && 
       curl $pkg; \
       mv $pkg /usr/local/bin/; \
       cd /usr/local/bin/; \
-      tar xvf $pkg;
+      tar xvf $pkg; \
     done && \
     echo "---"
 
