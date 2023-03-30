@@ -29,12 +29,17 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
 
 RUN echo "--- Installing binary packages from tar download in recipe.yml --" && \
     tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml) && \
+    tar_url=$(yq '.tar[]' < /etc/toolbx-recipe.yml) | cut -d: -f2 - | sed -e "s/^ //" && \
     for pkg in $tar_packages; do \
-      echo "Installing: ${pkg}" && \
-      curl $pkg; \
-      mv $pkg /usr/local/bin/; \
+      echo "Installing: ${bin}" && \
+      bin=$(echo $pkg | cut -d: -f1 -); \
+      url=$(echo $pkg | cut -d: -f2 - | sed -e "s/^ //"); \
+      curl $url; \
+      mv $bin* /usr/local/bin/; \
       cd /usr/local/bin/; \
-      tar xvf $pkg; \
+      tar xvf $bin*; \
+      chmod +x $bin*; \
+      cd /; \
     done && \
     echo "---"
 
