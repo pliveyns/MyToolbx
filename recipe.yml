@@ -1,3 +1,6 @@
+---
+chezmoi_version: v2.33.0
+
 dnf:
   - zsh
   - neovim
@@ -25,10 +28,10 @@ dnf:
   - w3m
   - exa
 rpm:
-  - https://github.com/twpayne/chezmoi/releases/download/v2.33.0/chezmoi-2.33.0-x86_64.rpm
+  - https://github.com/twpayne/chezmoi/releases/download/{{ chezmoi_version }}/chezmoi-2.33.0-x86_64.rpm
 tar:
   - zellij: https://github.com/zellij-org/zellij/releases/download/v0.35.2/zellij-x86_64-unknown-linux-musl.tar.gz
 binary:
-  - https://raw.github.com/xwmx/nb/master/nb
-  - https://github.com/1player/host-spawn/releases/download/1.4.1/host-spawn-x86_64
+  - nb: https://raw.github.com/xwmx/nb/master/nb
+  - host-spawn: https://github.com/1player/host-spawn/releases/download/1.4.1/host-spawn-x86_64
 
