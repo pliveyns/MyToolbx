@@ -22,18 +22,18 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     echo "--- Installing RPM packages from url defined in recipe.yml --" && \
     rpm_urls=$(yq '.rpm[]' < /etc/toolbx-recipe.yml) && \
     for pkg in $rpm_urls; do \
-        echo "Installing: ${pkg}" && \
-        dnf install -y $pkg; \
+        bin=$(echo $pkg | cut -d: -f1 -); \
+        url=$(echo $pkg | cut -d: -f2 - | sed -e "s/^ //"); \
+        echo "Installing: ${bin}" && \
+        dnf install -y $url; \
     done && \
-    echo "---"
-
-RUN echo "--- Installing binary packages from tar download in recipe.yml --" && \
+    echo "---" && \
+    echo "--- Installing binary packages from tar download in recipe.yml --" && \
     tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml) && \
-    tar_url=$(yq '.tar[]' < /etc/toolbx-recipe.yml) | cut -d: -f2 - | sed -e "s/^ //" && \
     for pkg in $tar_packages; do \
-      echo "Installing: ${bin}" && \
       bin=$(echo $pkg | cut -d: -f1 -); \
       url=$(echo $pkg | cut -d: -f2 - | sed -e "s/^ //"); \
+      echo "Installing: ${bin}" && \
       curl $url; \
       mv $bin* /usr/local/bin/; \
       cd /usr/local/bin/; \
