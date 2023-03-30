@@ -27,5 +27,16 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     done && \
     echo "---"
 
+RUN echo "--- Installing binary packages from tar download in recipe.yml --" && \
+    tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml) && \
+    for pkg in $tar_packages; do \
+      echo "Installing: ${pkg}" && \
+      curl $pkg; \
+      mv $pkg /usr/local/bin/; \
+      cd /usr/local/bin/; \
+      tar xvf $pkg;
+    done && \
+    echo "---"
+
 RUN rm /etc/toolbx-recipe.yml
 
