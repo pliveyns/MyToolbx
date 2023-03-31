@@ -22,8 +22,8 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     echo "--- Installing RPM packages from url defined in recipe.yml --" && \
     rpm_urls=$(yq '.rpm[]' < /etc/toolbx-recipe.yml) && \
     for pkg in $rpm_urls; do \
-        bin=$(echo $pkg | cut -d: -f1 -); \
-        url=$(echo $pkg | cut -d: -f2 - | sed -e "s/^ //"); \
+        bin=$(echo $pkg | cut -d' ' -f1 - | sed -e "s/:$//"); \
+        url=$(echo $pkg | cut -d' ' -f2 -); \
         echo "Installing: ${bin}" && \
         dnf install -y $url; \
     done && \
@@ -31,8 +31,8 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     echo "--- Installing binary packages from tar download in recipe.yml --" && \
     tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml) && \
     for pkg in $tar_packages; do \
-      bin=$(echo $pkg | cut -d: -f1 -); \
-      url=$(echo $pkg | cut -d: -f2 - | sed -e "s/^ //"); \
+      bin=$(echo $pkg | cut -d: -f1 - | sed -e  "s/:$//"); \
+      url=$(echo $pkg | cut -d: -f2 -); \
       echo "Installing: ${bin}" && \
       curl $url; \
       mv $bin* /usr/local/bin/; \
