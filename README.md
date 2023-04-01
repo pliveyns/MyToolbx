@@ -7,14 +7,14 @@ It is used in conjuction with a [dotfile manager](https://dotfiles.github.io/uti
 
 - Starts with the latest fedora image from the [Toolbx Community Images](https://github.com/toolbx-images/images)
 - Adds some quality of life
-  - `cwpowerlevel10kstarship` prompt
+  - `powerlevel10k` prompt
   - `just` for task execution
   - `chezmoi` for dotfile management
   - `btop` for process management
-  - `nvim` text editors
+  - `nvim` text editor
   - [clipboard](https://github.com/Slackadays/Clipboard) to cut, copy, and paste anything, anywhere, all from the terminal! 
   - `python3` 
-  - Some common power tools: `plocate`, `fzf`, `cosign`, `ripgrep`, `github-cli`, and `ffmpeg`
+  - Some common power tools: `plocate`, `fzf`, `cosign`, `ripgrep`
   - CLI tools recommended by [rawkode](https://www.youtube.com/watch?v=TNlDSG1iDW8)
     - [zellij](https://github.com/zellij-org/zellij) - terminal workspace
     - [direnv](https://direnv.net/) - environment variable extension for your shell 
