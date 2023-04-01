@@ -34,12 +34,12 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
       bin=$(echo $pkg | cut -d: -f1 - | sed -e  "s/:$//"); \
       url=$(echo $pkg | cut -d: -f2 -); \
       echo "Installing: ${bin}" && \
-      curl $url; \
-      mv $bin* /usr/local/bin/; \
-      cd /usr/local/bin/; \
-      tar xvf $bin*; \
-      chmod +x $bin*; \
-      cd /; \
+      curl -L $url -o /usr/local/bin/$bin; \
+      #mv $bin* /usr/local/bin/; \
+      #cd /usr/local/bin/; \
+      tar xvf /usr/local/bin/$bin*; \
+      chmod +x /usr/local/bin/$bin*; \
+      #cd /; \
     done && \
     echo "---"
 
