@@ -31,8 +31,8 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     echo "--- Installing binary packages from tar download in recipe.yml --" && \
     tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml) && \
     for pkg in $tar_packages; do \
-      bin=$(echo $pkg | cut -d: -f1 - | sed -e  "s/:$//"); \
-      url=$(echo $pkg | cut -d: -f2 -); \
+      bin=$(echo $pkg | cut -d' ' -f1 - | sed -e  "s/:$//"); \
+      url=$(echo $pkg | cut -d' ' -f2 -); \
       echo "Installing: ${bin}" && \
       curl -L $url -o /usr/local/bin/$bin; \
       #mv $bin* /usr/local/bin/; \
