@@ -15,10 +15,9 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
         echo "Installing: ${pkg}" && \
         dnf install -y $pkg; \
     done && \
-    echo "---" #&& \
-    #\
-
-RUN echo "--- Installing RPM packages from url defined in recipe.yml --" && \
+    echo "---" && \
+    \
+    echo "--- Installing RPM packages from url defined in recipe.yml --" && \
     rpm_urls=$(yq '.rpm[]' < /etc/toolbx-recipe.yml | sed -e "s/: /\&/") && \
     for pkg in $rpm_urls; do \
         bin=$(echo $pkg | cut -d'&' -f1 -); \
@@ -26,7 +25,7 @@ RUN echo "--- Installing RPM packages from url defined in recipe.yml --" && \
         echo "Installing: ${bin}" && \
         dnf install -y $url; \
     done && \
-    echo "---" && \
+    echo "---" #&& \
 #    \
 #    echo "--- Installing binary packages from tar download in recipe.yml --" && \
 #    tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml) && \
