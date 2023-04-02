@@ -15,7 +15,7 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
         echo "Installing: ${pkg}" && \
         dnf install -y $pkg; \
     done && \
-    echo "---" && \
+    echo "---" #&& \
     #\
 
 RUN echo "--- Installing RPM packages from url defined in recipe.yml --" && \
