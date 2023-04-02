@@ -25,22 +25,22 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
         echo "Installing: ${bin}" && \
         dnf install -y $url; \
     done && \
-    echo "---" #&& \
-#    \
-#    echo "--- Installing binary packages from tar download in recipe.yml --" && \
-#    tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml) && \
-#    for pkg in $tar_packages; do \
-#      bin=$(echo $pkg | cut -d' ' -f1 - | sed -e  "s/:$//"); \
-#      url=$(echo $pkg | cut -d' ' -f2 -); \
-#      echo "Installing: ${bin}" && \
-#      curl -L $url -o /usr/local/bin/; \
-#      #mv $bin* /usr/local/bin/; \
-#      #cd /usr/local/bin/; \
-#      tar xvf /usr/local/bin/$bin*; \
-#      chmod +x /usr/local/bin/$bin; \
-#      #cd /; \
-#    done && \
-#    echo "---"
+    echo "---" && \
+    \
+    echo "--- Installing binary packages from tar download in recipe.yml --" && \
+    tar_packages=$(yq '.tar[]' < /etc/toolbx-recipe.yml | sed -e "s/: /\&/") && \
+    for pkg in $tar_packages; do \
+      bin=$(echo $pkg | cut -d' ' -f1 -); \
+      url=$(echo $pkg | cut -d' ' -f2 -); \
+      echo "Installing: ${bin}" && \
+      curl -L $url -o /usr/local/bin/; \
+      #mv $bin* /usr/local/bin/; \
+      #cd /usr/local/bin/; \
+      tar xvf /usr/local/bin/$bin*; \
+      chmod +x /usr/local/bin/$bin; \
+      #cd /; \
+    done && \
+    echo "---"
 
 RUN rm /etc/toolbx-recipe.yml
 
