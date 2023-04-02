@@ -33,12 +33,11 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
       bin=$(echo $pkg | cut -d'&' -f1 -); \
       url=$(echo $pkg | cut -d'&' -f2 -); \
       echo "Installing: ${bin}" && \
-      curl -L $url -o /usr/local/bin/; \
-      #mv $bin* /usr/local/bin/; \
-      #cd /usr/local/bin/; \
+      cd /usr/local/bin/; \
+      curl $url; \
       tar xvf /usr/local/bin/$bin*; \
       chmod +x /usr/local/bin/$bin; \
-      #cd /; \
+      cd /; \
     done && \
     echo "---"
 
