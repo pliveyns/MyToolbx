@@ -2,7 +2,7 @@ FROM registry.fedoraproject.org/fedora-toolbox:37
 
 LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox command" \
-      summary="A cloud-native terminal experience; besed on Jorge Catro's Boxkit" \
+      summary="A cloud-native terminal experience; besed on Jorge Catro's boxkit" \
       maintainer="peter.liveyns@gmail.com>"
 
 COPY recipe.yml /etc/toolbx-recipe.yml
@@ -16,8 +16,9 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
         dnf install -y $pkg; \
     done && \
     echo "---" && \
-    \
-    echo "--- Installing RPM packages from url defined in recipe.yml --" && \
+    #\
+
+RUN echo "--- Installing RPM packages from url defined in recipe.yml --" && \
     rpm_urls=$(yq '.rpm[]' < /etc/toolbx-recipe.yml | sed -e "s/: /\&/") && \
     for pkg in $rpm_urls; do \
         bin=$(echo $pkg | cut -d'&' -f1 -); \
