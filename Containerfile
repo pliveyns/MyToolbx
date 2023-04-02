@@ -2,15 +2,12 @@ FROM registry.fedoraproject.org/fedora-toolbox:37
 
 LABEL com.github.containers.toolbox="true" \
       usage="This image is meant to be used with the toolbox command" \
-      summary="A cloud-native terminal experience" \
+      summary="A cloud-native terminal experience; besed on Jorge Catro's Boxkit" \
       maintainer="peter.liveyns@gmail.com>"
 
 COPY recipe.yml /etc/toolbx-recipe.yml
 
 COPY --from=docker.io/mikefarah/yq /usr/bin/yq /usr/bin/yq
-
-#RUN dnf upgrade -y && \
-#    dnf install -y $(cat extra-packages)
 
 RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     dnf_packages=$(yq '.dnf[]' < /etc/toolbx-recipe.yml) && \
@@ -21,10 +18,10 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
     echo "---" && \
     \
     echo "--- Installing RPM packages from url defined in recipe.yml --" && \
-    rpm_urls=$(yq '.rpm[]' < /etc/toolbx-recipe.yml) && \
+    rpm_urls=$(yq '.rpm[]' < /etc/toolbx-recipe.yml | sed -e "s/: /\&/") && \
     for pkg in $rpm_urls; do \
-        bin=$(echo $pkg | cut -d' ' -f1 - | sed -e "s/:$//"); \
-        url=$(echo $pkg | cut -d' ' -f2 -); \
+        bin=$(echo $pkg | cut -d'&' -f1 -); \
+        url=$(echo $pkg | cut -d'&' -f2 -); \
         echo "Installing: ${bin}" && \
         dnf install -y $url; \
     done && \
