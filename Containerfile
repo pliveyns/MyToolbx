@@ -48,7 +48,7 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
       url=$(echo $pkg | cut -d'&' -f2 -); \
       echo "Installing: ${bin}" && \
       curl -L $url -o /usr/local/bin/$bin; \
-      #chmod +x /usr/local/bin/$bin; \
+      chmod +x /usr/local/bin/$bin; \
       #cd /; \
     done && \
     echo "---"
