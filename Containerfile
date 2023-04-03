@@ -39,6 +39,18 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
       chmod +x /usr/local/bin/$bin; \
       cd /; \
     done && \
+    echo "---" && \
+    \
+    echo "--- Installing binary packages from download link in recipe.yml --" && \
+    binary_packages=$(yq '.binary[]' < /etc/toolbx-recipe.yml | sed -e "s/: /\&/") && \
+    for pkg in $binary_packages; do \
+      bin=$(echo $pkg | cut -d'&' -f1 -); \
+      url=$(echo $pkg | cut -d'&' -f2 -); \
+      echo "Installing: ${bin}" && \
+      curl -L $url -o /usr/local/bin/$bin; \
+      #chmod +x /usr/local/bin/$bin; \
+      #cd /; \
+    done && \
     echo "---"
 
 RUN rm /etc/toolbx-recipe.yml
