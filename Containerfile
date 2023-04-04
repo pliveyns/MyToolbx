@@ -55,3 +55,9 @@ RUN echo "--- Installing DNF packages defined in recipe.yml --" && \
 
 RUN rm /etc/toolbx-recipe.yml
 
+RUN   ln -fs /usr/local/bin/host-spawn /usr/local/bin/toolbox && \
+      ln -fs /usr/local/bin/host-spawn /usr/local/bin/flatpak && \ 
+      ln -fs /usr/local/bin/host-spawn /usr/local/bin/podman && \
+      ln -fs /usr/local/bin/host-spawn /usr/local/bin/rpm-ostree && \
+      ln -fs /usr/local/bin/host-spawn /usr/local/bin/distrobox
+
