@@ -24,6 +24,12 @@ dnf:
   - tig
   - w3m
   - exa
+  - speedtest-cli
+  - dbus-x11
+  - direnv
+  - just
+  - ncurses
+  - wl-clipboard
 rpm:
   - chezmoi: https://github.com/twpayne/chezmoi/releases/download/v2.33.0/chezmoi-2.33.0-x86_64.rpm
 tar:
